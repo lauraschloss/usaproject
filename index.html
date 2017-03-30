@@ -1,22 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title></title>
 	<title>USA Project</title>
 	<link rel="stylesheet" type="text/css" href="normalize.css">
 	<link rel="stylesheet" type="text/css" href="skeleton.css">
 </head>
 <body>
 	<div class="container">
+
 		<div class="row">
-			<div class="eight columns">
-				<img src="usa.jpg">
-			</div>
 			<div class="four columns">
-				<a class="button" href="#">login</a> 
-				<a class="button" href="#">newsletter</a>
+				<nav id="sidebar" style="position:fixed">
+					<img src="usa.png" style="width:300px">
+				</nav>
 			</div>
-		</div>
+
+			<div class="eight columns">
+				<div class="row">
+					<div id="buttons" style="float: right">
+						<a class="button" href="#">login</a> 
+						<a class="button" href="#">newsletter</a>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="nine columns">Welcome to USA!</div>
+				</div>
+
+				<div class="row"></div>
+				<a href="url">link text</a>
+
+			</div> </div>
+
+			<div class="row">
+		        <div class="one column">forward</div>
+		        <div class="ten columns" id="center">
+		       		<button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+		        	<img class="mySlides" src="dog.png">
+					<img class="mySlides" src="usa.png">
+					<img class="mySlides" src="dog.png">
+					<img class="mySlides" src="usa.png">
+					<button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button>
+		        </div>
+		        <div class="one column">back</div>
+		      </div>
+	
 	</div>
+
+	<script>
+	var slideIndex = 0;
+	carousel();
+
+	function carousel() {
+    	var i;
+    	var x = document.getElementsByClassName("mySlides");
+    
+    	for (i = 0; i < x.length; i++) {
+      	x[i].style.display = "none"; 
+    	}
+    	slideIndex++;
+    		if (slideIndex > x.length) {slideIndex = 1} 
+    			x[slideIndex-1].style.display = "block"; 
+   				setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+	</script>
+
 
 </body>
 </html>
