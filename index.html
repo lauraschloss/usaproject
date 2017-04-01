@@ -7,15 +7,22 @@
 	<link rel="stylesheet" type="text/css" href="skeleton.css">
 </head>
 <body>
+	<style>
+		a {
+			text-decoration: none;
+			color: black;
+		}
+
+		#sidebar {
+			background: red;
+		}
+
+	</style>
 	<div class="container">
 
-		<div class="row">
-			<div class="four columns">
-				<nav id="sidebar" style="position:fixed">
-					<img src="usa.png" style="width:300px">
-				</nav>
-			</div>
 
+
+		<div class="row">
 			<div class="eight columns">
 				<div class="row">
 					<div id="buttons" style="float: right">
@@ -24,11 +31,21 @@
 					</div>
 				</div>
 
-				<div class="row">
-					<div class="nine columns">Welcome to USA!</div>
-				</div>
-
+		<div class="row">
+			<div class="eleven columns"><center>Travel to the USA!</center></div>
+		</div>
 				<div class="row"></div>
+					<div class="four columns">
+						<nav id="sidebar" style="position:fixed">
+						<!-- <img src="usa.png" style="width:300px"> -->
+						<ul style="list-style-type:none">
+						<li><a href="url">HOME</a></li>
+						<li><a href="url">ABOUT</a></li>
+						<li><a href="url">TRIPS</a></li>
+						<li><a href="url">FOOD</a></li>
+						</ul>
+				</nav>
+			</div>
 				<a href="url">link text</a>
 
 			</div> </div>
@@ -51,7 +68,6 @@
 	<script>
 	var slideIndex = 0;
 	carousel();
-
 	function carousel() {
     	var i;
     	var x = document.getElementsByClassName("mySlides");
