@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="normalize.css">
+	<link rel="stylesheet" type="text/css" href="skeleton.css">
+<style>
+    input[type="text"], input[type="user"], input[type="password"], textarea {
+      width: 150px;
+      vertical-align: top;
+      border: 1px solid #999;
+      padding: 3px;
+    }
+
+    label {
+      width: 100px;
+      display: inline-block;
+      text-align: right;
+    }
+    form div {
+      margin-bottom: 5px;
+    }
+
+    h5 {
+    	margin-left: 20px;
+    }
+  </style>
+
+</head>
+<body>
+
+<h5>Please enter your username and password information.</h5>
+
+<body>
+  <form action="#" id="the-form" method="post">
+    <div>
+      <label for="user-field">Username</label> <input type="user" id="user-field">
+    </div>
+
+    <div>
+      <label for="pass-field">Password</label> <input type="password" id="pass-field">
+    </div>
+
+    <div>
+      <input type="submit" value="Submit" style="margin-left: 20px">
+    </div>
+  
+  </form>
+
+<script>
+var form = document.querySelector("#the-form");
+function submitHandler(event) {
+  event.preventDefault();
+  var textField = document.querySelector("#text-field").value
+  console.log(textField)
+}
+form.addEventListener('submit', submitHandler)
+</script>
+</body>
+</html>
+
+</body>
+</html>
