@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <title>USA Project</title>
+  <link rel="stylesheet" type="text/css" href="normalize.css">
+  <link rel="stylesheet" type="text/css" href="skeleton.css">
+</head>
+<body>
+  <style>
+    a {
+      text-decoration: none;
+      color: black;
+    }
+    #sidebar {
+      background: white;
+    }
+    .mySlides {
+      width: 80%;
+    }
+    body{
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 100px;
+        background-color: #ffffff;
+    }
+    li a {
+        display: block;
+        color: #000;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+    /* Change the link color on hover */
+    li a:hover {
+        background-color: #555;
+        color: white;
+    }
+  </style>
+  <div class="container">
+
+    <div class="one column">
+      <img src="usa.png" style="width:200px">
+    </div>
+    <div class="eleven columns">
+      <div id="buttons" style="float: right">
+        <a class="button" href="http://laurapschloss.com/assignment%207/loginpage.html">login</a> 
+        <a class="button" href="http://laurapschloss.com/assignment%207/newsletter.html">newsletter</a>
+      </div>
+    </div>
+
+    <h4><div class="row" style="margin-right: -100px">
+      <div class="eleven columns"><center>Sign up for our Newsletter</center></div>
+    </div></h4>
+
+        
+
+      
+            <div class="six columns">
+            <nav id="sidebar" style="position:fixed">
+            <!--  -->
+            <ul>
+            <li><a href="http://laurapschloss.com/assignment%207/">home</a></li>
+            <li><a href="http://laurapschloss.com/assignment%207/about">about</a></li>
+            <li><a href="newsletter.html">trips</a></li>
+            <li><a href="https://yelp.com">food</a></li>
+            </ul>
+            </nav>
+          </div>
+
+
+            <!--<div class="row">-->
+            <div class="six columns" style="float: right"> 
+              <form action="#" id="the-form" method="post">
+              <div>
+                <label for="user-field">Username</label> <input type="user" id="user-field">
+              </div>
+
+             <div>
+                <label for="pass-field">Password</label> <input type="password" id="pass-field">
+            </div>
+
+            <div>
+              <input type="submit" value="Submit" style="margin-left: 20px">
+            </div>
+  
+            </form>
+          
+           
+          </div>
+  
+  </div>
+
+<script>
+  var form = document.querySelector("#the-form");
+  function submitHandler(event) {
+    event.preventDefault();
+    var textField = document.querySelector("#text-field").value
+    console.log(textField)
+  }
+  form.addEventListener('submit', submitHandler);
+</script>
+
+
+</body>
+</html>
