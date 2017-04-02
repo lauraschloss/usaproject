@@ -2,63 +2,109 @@
 <html>
 <head>
 	<title></title>
-	<title>Login</title>
+	<title>USA Project</title>
 	<link rel="stylesheet" type="text/css" href="normalize.css">
 	<link rel="stylesheet" type="text/css" href="skeleton.css">
-<style>
-    input[type="text"], input[type="user"], input[type="password"], textarea {
-      width: 150px;
-      vertical-align: top;
-      border: 1px solid #999;
-      padding: 3px;
-    }
-
-    label {
-      width: 100px;
-      display: inline-block;
-      text-align: right;
-    }
-    form div {
-      margin-bottom: 5px;
-    }
-
-    h5 {
-    	margin-left: 20px;
-    }
-  </style>
-
 </head>
 <body>
+	<style>
+		a {
+			text-decoration: none;
+			color: black;
+		}
+		#sidebar {
+			background: white;
+		}
+		.mySlides {
+			width: 80%;
+		}
+		body{
+		}
+		ul {
+		    list-style-type: none;
+		    margin: 0;
+		    padding: 0;
+		    width: 100px;
+		    background-color: #ffffff;
+		}
+		li a {
+		    display: block;
+		    color: #000;
+		    padding: 8px 16px;
+		    text-decoration: none;
+		}
+		/* Change the link color on hover */
+		li a:hover {
+		    background-color: #555;
+		    color: white;
+		}
+	</style>
+	<div class="container">
 
-<h5>Please enter your username and password information.</h5>
+		<div class="one column">
+			<img src="usa.png" style="width:200px">
+		</div>
+		<div class="eleven columns">
+			<div id="buttons" style="float: right">
+				<a class="button" href="http://laurapschloss.com/assignment%207/loginpage.html">login</a> 
+				<a class="button" href="#">newsletter</a>
+			</div>
+		</div>
 
-<body>
-  <form action="#" id="the-form" method="post">
-    <div>
-      <label for="user-field">Username</label> <input type="user" id="user-field">
-    </div>
+		<h4><div class="row" style="margin-right: -100px">
+			<div class="eleven columns"><center>Travel To The United States Today!</center></div>
+		</div></h4>
 
-    <div>
-      <label for="pass-field">Password</label> <input type="password" id="pass-field">
-    </div>
+				
 
-    <div>
-      <input type="submit" value="Submit" style="margin-left: 20px">
-    </div>
-  
-  </form>
+			
+		        <div class="six columns">
+						<nav id="sidebar" style="position:fixed">
+						<!--  -->
+						<ul>
+						<li><a href="http://laurapschloss.com/assignment%207/">home</a></li>
+						<li><a href="http://laurapschloss.com/assignment%207/about">about</a></li>
+						<li><a href="http://laurapschloss.com/assignment%207/trips">trips</a></li>
+						<li><a href="yelp.com">food</a></li>
+						</ul>
+						</nav>
+					</div>
 
-<script>
-var form = document.querySelector("#the-form");
-function submitHandler(event) {
-  event.preventDefault();
-  var textField = document.querySelector("#text-field").value
-  console.log(textField)
+
+		      	<!--<div class="row">-->
+		      	<div class="six columns" style="float: right">
+
+		       		<!-- <button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button> -->
+		        	<img class="mySlides" src="usa.jpg">
+					<img class="mySlides" src="usa.png">
+					<img class="mySlides" src="dog.png">
+					<img class="mySlides" src="usa.png">
+					<!-- <button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button> -->
+		        </div>
+					
+				<!--</div>-->
+		       
+		      </div>
+	
+	</div>
+
+	<script>
+	var slideIndex = 0;
+	carousel();
+	function carousel() {
+    	var i;
+    	var x = document.getElementsByClassName("mySlides");
+    
+    	for (i = 0; i < x.length; i++) {
+      	x[i].style.display = "none"; 
+    	}
+    	slideIndex++;
+    		if (slideIndex > x.length) {slideIndex = 1} 
+    			x[slideIndex-1].style.display = "block"; 
+   				setTimeout(carousel, 10000); // Change image every 2 seconds
 }
-form.addEventListener('submit', submitHandler)
-</script>
-</body>
-</html>
+	</script>
+
 
 </body>
 </html>
