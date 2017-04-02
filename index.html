@@ -20,6 +20,9 @@
 		.mySlides {
 			width: 80%;
 		}
+		.container{
+			background-color: lightgrey;
+		}
 
 	</style>
 	<div class="container">
@@ -53,18 +56,18 @@
 					</div>
 
 
-		      	<div class="row">
-		      	<div class="six columns">
+		      	<!--<div class="row">-->
+		      	<div class="six columns" style="float: right">
 
 		       		<!-- <button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button> -->
-		        	<img class="mySlides" src="dog.png">
+		        	<img class="mySlides" src="usa.jpg">
 					<img class="mySlides" src="usa.png">
 					<img class="mySlides" src="dog.png">
 					<img class="mySlides" src="usa.png">
 					<!-- <button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button> -->
 		        </div>
 					
-				</div>
+				<!--</div>-->
 		       
 		      </div>
 	
@@ -83,7 +86,7 @@
     	slideIndex++;
     		if (slideIndex > x.length) {slideIndex = 1} 
     			x[slideIndex-1].style.display = "block"; 
-   				setTimeout(carousel, 2000); // Change image every 2 seconds
+   				setTimeout(carousel, 10000); // Change image every 2 seconds
 }
 	</script>
 
