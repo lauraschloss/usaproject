@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		body {
+  font-family: helvetica;
+  background: #eee;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.5em;
+}
+
+form {
+  margin-top: 2em;
+}
+
+.hide {
+  position: absolute;
+  left: -10000px;
+}
+
+label {
+  display: inline-block;
+  background: gray;
+  margin: 25px;
+  position: relative;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 2px;
+  font-size: 1em;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+#happy {
+    cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/happy.png"), auto;
+  	background: green;
+
+}
+
+#sad {
+
+    cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/sad.png"), auto;
+    background: red;
+}
+
+#meh {
+    cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/meh.png"), auto;
+
+    background: orange;
+}
+	</style>
+</head>
+<body>
+	<form>
+	  <h1>How are you feeling today?</h1>
+	  <input class="hide" type="checkbox" title="Happy" name="happy" id="happy">
+	  <label for="happy" class="option-happy">Happy</label>
+	  
+	  <input class="hide" type="checkbox" title="Sad" name="sad" id="sad">
+	  <label for="sad" class="option-sad">Sad</label>
+	  
+	  <input class="hide" type="checkbox" title="Meh" name="meh" id="meh">
+	  <label for="meh" class="option-meh">Meh</label>
+	</form>
+</body>
+</html>
