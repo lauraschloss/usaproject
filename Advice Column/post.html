@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Advice Column</title>
+	 <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Shop USA</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<style>
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+#chats {
+      background-color: #fff;
+      border-bottom: 1px solid #ccc;
+      height: 500px;
+      overflow: scroll;
+    }
+   .chat {
+      padding: 5px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid #ccc;
+    }
+</style>
+</head>
+<body>
+<h1>Post for Advice</h1>
+	<div class="col-md-4">
+	  <form>
+	    <label for="Title">Title</label>
+	    <input type="text" id="name" placeholder="Title">
+
+	    <label for="Text">Text</label>
+	    <input type="text" id="message" placeholder="Text" style="height: 150px;resize: none;">
+	    <input type="submit" value="send">
+	  </form>
+	  </div>
+  <div class="col-md-8">
+  <div id="chats"></div>	
+  	<form id="chat-form">
+    <input placeholder="message" type="text" id="message">
+    <input type="submit" value="send">
+  </form>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var messageInput = $('#message');
+var usernameInput = $('#name');
+var chatForm = $('#chat-form');
+
+var socket = io.connect(window.location.origin);
+socket.on('message', function(data){
+  addChat(data.username, data.message);
+});
+
+socket.on('initialize', function(messages){
+  for (var i = 0; i < messages.length; i++){
+    addChat(messages[i].username, messages[i].message);
+  }
+})
+
+function addChat(username, message) {
+  var chat = $('<div class="chat"></div>');
+
+  var userSpan = $('<span class="username"></span>');
+  userSpan.text(username);
+  chat.append(userSpan);
+
+  var messageSpan = $('<span class="message"></span>');
+  messageSpan.text(message);
+  chat.append(messageSpan);
+
+  $('#chats').append(chat);
+  $("#chats").animate({ scrollTop: $('#chats').prop("scrollHeight")}, 400);
+
+
+}
+
+chatForm.on('submit', function(event){
+  event.preventDefault();
+  var username = usernameInput.val();
+  var message = messageInput.val();
+
+  if (username && message) {
+    console.log(username, message);
+    addChat(username, message);
+    messageInput.val('');
+    usernameInput.val('');
+    socket.emit('message', {message: message, username: username});
+  }
+});
+
+</script>
+
+</body>
+</html>

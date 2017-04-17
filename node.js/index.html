@@ -6,68 +6,117 @@
 		body {
   font-family: helvetica;
   background: #eee;
-  text-align: center;
 }
 
 h1 {
   font-size: 1.5em;
+  text-align: center;
 }
 
 form {
   margin-top: 2em;
 }
+    body {
+      font: 16px sans-serif;
+      background-color: #eee;
+      height: 100%;
+    }
+    html {
+      height: 100%;
+    }
+    #container {
+      max-width: 800px;
+      margin: auto;
+      height: 100%;
+    }
+    #chats {
+      background-color: #fff;
+      border-bottom: 1px solid #ccc;
+      height: 90%;
+      overflow: scroll;
+    }
+    .username {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    .chat {
+      padding: 5px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid #ccc;
+    }
 
-.hide {
-  position: absolute;
-  left: -10000px;
-}
-
-label {
-  display: inline-block;
-  background: gray;
-  margin: 25px;
-  position: relative;
-  width: 100px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 2px;
-  font-size: 1em;
-  color: #fff;
-  text-align: center;
-  text-decoration: none;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
-#happy {
-    cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/happy.png"), auto;
-  	background: green;
-
-}
-
-#sad {
-
-    cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/sad.png"), auto;
-    background: red;
-}
-
-#meh {
-    cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/meh.png"), auto;
-
-    background: orange;
-}
 	</style>
 </head>
 <body>
+<div id="container">
+
+	<h1>Advice Column</h1>
 	<form>
-	  <h1>How are you feeling today?</h1>
-	  <input class="hide" type="checkbox" title="Happy" name="happy" id="happy">
-	  <label for="happy" class="option-happy">Happy</label>
-	  
-	  <input class="hide" type="checkbox" title="Sad" name="sad" id="sad">
-	  <label for="sad" class="option-sad">Sad</label>
-	  
-	  <input class="hide" type="checkbox" title="Meh" name="meh" id="meh">
-	  <label for="meh" class="option-meh">Meh</label>
-	</form>
+	Ask for Adivce:<br>
+	  <input type="text" title="Post" id="Post" name="Post">
+	  <br>
+	  <input type="submit" value="Submit">
+	  	</form>
+	<div id="chats"></div>	
+  	<form id="chat-form">
+    <input placeholder="username" type="text" id="name">
+    <input placeholder="message" type="text" id="message">
+    <input type="submit" value="send">
+  </form>
+</div>
+
+</div>
 </body>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+
+	<script>
+	var messageInput = $('#message');
+	var usernameInput = $('#name');
+	var chatForm = $('#chat-form');
+
+	var socket = io.connect(window.location.origin);
+	socket.on('message', function(data){
+	  addChat(data.username, data.message);
+	});
+
+	socket.on('initialize', function(messages){
+	  for (var i = 0; i < messages.length; i++){
+	    addChat(messages[i].username, messages[i].message);
+	  }
+	})
+
+	function addChat(username, message) {
+	  var chat = $('<div class="chat"></div>');
+
+	  var userSpan = $('<span class="username"></span>');
+	  userSpan.text(username);
+	  chat.append(userSpan);
+
+	  var messageSpan = $('<span class="message"></span>');
+	  messageSpan.text(message);
+	  chat.append(messageSpan);
+
+	  $('#chats').append(chat);
+	  $("#chats").animate({ scrollTop: $('#chats').prop("scrollHeight")}, 400);
+
+
+	}
+
+	chatForm.on('submit', function(event){
+	  event.preventDefault();
+	  var username = usernameInput.val();
+	  var message = messageInput.val();
+
+	  if (username && message) {
+	    console.log(username, message);
+	    addChat(username, message);
+	    messageInput.val('');
+	    socket.emit('message', {message: message, username: username});
+	  }
+	});
+
+	</script>
 </html>
