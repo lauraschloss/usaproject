@@ -79,51 +79,50 @@ div {
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-var messageInput = $('#message');
-var usernameInput = $('#name');
-var chatForm = $('#chat-form');
+	var messageInput = $('#message');
+	var usernameInput = $('#name');
+	var chatForm = $('#chat-form');
 
-var socket = io.connect(window.location.origin);
-socket.on('message', function(data){
-  addChat(data.username, data.message);
-});
+	var socket = io.connect(window.location.origin);
+	socket.on('message', function(data){
+	  addChat(data.username, data.message);
+	});
 
-socket.on('initialize', function(messages){
-  for (var i = 0; i < messages.length; i++){
-    addChat(messages[i].username, messages[i].message);
-  }
-})
+	socket.on('initialize', function(messages){
+	  for (var i = 0; i < messages.length; i++){
+	    addChat(messages[i].username, messages[i].message);
+	  }
+	})
 
-function addChat(username, message) {
-  var chat = $('<div class="chat"></div>');
+	function addChat(username, message) {
+	  var chat = $('<div class="chat"></div>');
 
-  var userSpan = $('<span class="username"></span>');
-  userSpan.text(username);
-  chat.append(userSpan);
+	  var userSpan = $('<span class="username"></span>');
+	  userSpan.text(username);
+	  chat.append(userSpan);
 
-  var messageSpan = $('<span class="message"></span>');
-  messageSpan.text(message);
-  chat.append(messageSpan);
+	  var messageSpan = $('<span class="message"></span>');
+	  messageSpan.text(message);
+	  chat.append(messageSpan);
 
-  $('#chats').append(chat);
-  $("#chats").animate({ scrollTop: $('#chats').prop("scrollHeight")}, 400);
+	  $('#chats').append(chat);
+	  $("#chats").animate({ scrollTop: $('#chats').prop("scrollHeight")}, 400);
 
 
-}
+	}
 
-chatForm.on('submit', function(event){
-  event.preventDefault();
-  var username = usernameInput.val();
-  var message = messageInput.val();
+	chatForm.on('submit', function(event){
+	  event.preventDefault();
+	  var username = usernameInput.val();
+	  var message = messageInput.val();
 
-  if (username && message) {
-    console.log(username, message);
-    addChat(username, message);
-    messageInput.val('');
-    usernameInput.val('');
-    socket.emit('message', {message: message, username: username});
-  }
-});
+	  if (username && message) {
+	    console.log(username, message);
+	    addChat(username, message);
+	    messageInput.val('');
+	    socket.emit('message', {message: message, username: username});
+	  }
+	});
 
 </script>
 
