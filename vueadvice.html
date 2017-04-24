@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Advice Column</title>
+	 <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Shop USA</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<style>
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+#chats {
+      background-color: #fff;
+      border-bottom: 1px solid #ccc;
+      height: 500px;
+      overflow: scroll;
+    }
+   .chat {
+      padding: 5px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid #ccc;
+    }
+</style>
+</head>
+<body>
+<h1>Post for Advice!</h1>
+	<div class="col-md-4">
+	  <form id="helpform">
+	    <label for="Title">Title</label>
+	    <input type="text" id="title" placeholder="Title">
+
+	    <label for="Text">Text</label>
+	    <input type="text" id="helptext" placeholder="Text" style="height: 150px;resize: none;">
+	    <input type="submit" value="send">
+	  </form>
+	  </div>
+  <div class="col-md-8">
+  <div id="help-holder">
+    <h2 id="public-title"></h2>
+    <p id="public-helptext"></p>
+  </div>
+  <div id="chats"></div>	
+  	<div class="chat" v-for="chat in chats">
+      <span class="username">{{chat.username}}: </span>
+      <span class="message">{{chat.message}}</span>
+      <span class="user-image"><img v-bind:src="chat.image"/></span>
+    </div>
+  </div>
+
+  <form id="chat-form" v-on:submit="sendChat">
+    <input placeholder="username" type="text" id="name" v-model="username">
+    <input placeholder="message" type="text" id="message" v-model="message">
+    <input type="submit" value="send">
+  </form>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://unpkg.com/vue"></script>
+
+<script>
+var messageInput = $('#message');
+var usernameInput = $('#name');
+var chatForm = $('#chat-form');
+
+// var titleInput = $('#title');
+// var helptextInput = $('#helptext');
+// var helpform = $('#helpform');
+
+var vm = new Vue({
+  el: '#container',
+  data: {
+    chats: [],
+    username: '',
+    message: '',
+  },
+
+created: function() {
+
+  },
+  methods: {
+    sendChat: function(e) {
+      e.preventDefault();
+      if (this.username && this.message) {
+        socket.emit('message', {message: this.message, username: this.username});
+        this.updateChats(this.username, this.message);
+        this.message = '';
+      }
+    },
+    updateChats(username, message) {
+      console.log(username, message);
+      this.chats.push({username: username, message: message});
+      this.$nextTick(function() {
+        var chats = this.$el.querySelector("#chats");
+        chats.scrollTop = chats.scrollHeight;
+      });
+    },
+  }
+});
+
+
+
+
+// var socket = io.connect(window.location.origin);
+socket.on('message', function(data){
+  //console.log(data)
+  vm.updateChats(data.username, data.message, data.image);
+});
+
+socket.on('initialize', function(data){
+  vm.chats = data;
+  vm.$nextTick(function() {
+    var chats = vm.$el.querySelector("#chats");
+    chats.scrollTop = chats.scrollHeight;
+  });
+});
+
+
+function addHelp(title, helptext) {
+  $('#public-helptext').text(helptext);
+  $('#public-title').text(title);
+  $('#chats').html('')
+}
+
+helpform.on('submit', function(event){
+  event.preventDefault();
+  //var username = usernameInput.val();
+  var title = titleInput.val();
+  var helptext = helptextInput.val();
+  
+  if (title && helptext) {
+    addHelp(title, helptext);
+    //messageInput.val('');
+    socket.emit('message', {title: title, helptext: helptext});
+  }
+});
+</script>
+
+</body>
+</html>
