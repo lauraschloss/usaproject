@@ -52,23 +52,24 @@ div {
 </style>
 </head>
 <body>
+<div id="container">
 <h1>Post for Advice!</h1>
 	<div class="col-md-4">
-	  <form id="helpform" v-on:submit="addHelp">
+	  <form id="helpform">
 	    <label for="Title">Title</label>
-	    <input type="text" id="title" placeholder="Title" v-model="title">
+	    <input type="text" id="title" placeholder="Title">
 
 	    <label for="Text">Text</label>
-	    <input type="text" id="helptext" placeholder="Text" style="height: 150px;resize: none;" v-model="text">
+	    <input type="text" id="helptext" placeholder="Text" style="height: 150px;resize: none;">
 	    <input type="submit" value="send">
 	  </form>
-	</div>
+	  </div>
   <div class="col-md-8">
     <div id="help-holder">
-      <h2>{{title}}</h2>
-      <p>{{text}}</p>
-    </div>
-    <div id="chats"></div>	
+      <h2 id="public-title"></h2>
+      <p id="public-helptext"></p>
+      </div>
+    <div id="chats">	
     	<div class="chat" v-for="chat in chats">
         <span class="username">{{chat.username}}: </span>
         <span class="message">{{chat.message}}</span>
@@ -76,11 +77,13 @@ div {
       </div>
     </div>
 
-  <form id="chat-form" v-on:submit="sendChat">
-    <input placeholder="username" type="text" id="name" v-model="username">
-    <input placeholder="message" type="text" id="message" v-model="message">
-    <input type="submit" value="send">
-  </form>
+
+    <form id="chat-form" v-on:submit="sendChat">
+      <input placeholder="username" type="text" id="name" v-model="username">
+      <input placeholder="message" type="text" id="message" v-model="message">
+      <input type="submit" value="send">
+    </form>
+  </div>
 </div>
 
 
@@ -90,9 +93,11 @@ div {
 <script src="https://unpkg.com/vue"></script>
 
 <script>
-var messageInput = $('#message');
-var usernameInput = $('#name');
-var chatForm = $('#chat-form');
+// var messageInput = $('#message');
+// var usernameInput = $('#name');
+// var chatForm = $('#chat-form');
+
+var socket = io.connect(window.location.origin);
 
 // var titleInput = $('#title');
 // var helptextInput = $('#helptext');
@@ -104,8 +109,6 @@ var vm = new Vue({
     chats: [],
     username: '',
     message: '',
-    title:'',
-    text:'',
   },
 
 created: function() {
@@ -128,21 +131,8 @@ created: function() {
         chats.scrollTop = chats.scrollHeight;
       });
     },
-    addHelp(title, text) {
-      console.log(title,text)
-      e.preventDefault();
-      if (this.username && this.message) {
-        socket.emit('message', {message: this.message, username: this.username});
-        this.updateChats(this.username, this.message);
-        this.message = '';
-      }
-  if (title && helptext) {
-    addHelp(title, helptext);
-    //messageInput.val('');
-    socket.emit('message', {title: title, helptext: helptext});
   }
 });
-
 
 
 
@@ -162,7 +152,24 @@ socket.on('initialize', function(data){
 });
 
 
+// function addHelp(title, helptext) {
+//   $('#public-helptext').text(helptext);
+//   $('#public-title').text(title);
+//   $('#chats').html('')
+// }
 
+// helpform.on('submit', function(event){
+//   event.preventDefault();
+//   //var username = usernameInput.val();
+//   var title = titleInput.val();
+//   var helptext = helptextInput.val();
+  
+//   if (title && helptext) {
+//     addHelp(title, helptext);
+//     //messageInput.val('');
+//     socket.emit('message', {title: title, helptext: helptext});
+//   }
+// });
 </script>
 
 </body>
